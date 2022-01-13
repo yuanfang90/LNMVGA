@@ -7,7 +7,7 @@ The preferred way to install this package is through using `devtools::install_gi
 
 ### Preparations
 
-If you haven't installed the packages [devtools](https://cran.r-project.org/web/packages/devtools/index.html) please do the following first:
+If you haven't installed the package [devtools](https://cran.r-project.org/web/packages/devtools/index.html), please do the following first:
 
 ```{r}
 install.packages("devtools")
