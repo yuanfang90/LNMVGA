@@ -11,3 +11,7 @@ Imports:
     MASS,
     mclust,
     mvtnorm
+Suggests: 
+    rmarkdown,
+    knitr
+VignetteBuilder: knitr
