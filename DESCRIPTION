@@ -1,0 +1,13 @@
+Package: LNMVGA
+Title: Cluster micriobiome / compositional data using mixture of logistic-normal multinomial models
+Version: 0.0.0.9000
+Authors@R: c(person("Yuan", "Fang", email = "yuanf@bu.edu", role = c("aut", "cre"), comment = c(ORCID = "0000-0001-8430-1238")),person("Sanjeena", "Subedi", email = "sanjeena.dang@carleton.ca", role = c("aut")))
+Description: This package provide a novel mixture of logistic-normal multinomial models for clustering microbiome data, or other compositional data. Parameter estimation are accomplished using variational Gaussian approximation to lift the computational overhead.
+License: use_mit_license()
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2.9000
+Imports:
+    MASS,
+    mclust,
+    mvtnorm
