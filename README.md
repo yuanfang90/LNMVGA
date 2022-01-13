@@ -15,6 +15,12 @@ library("devtools")
 ```
 
 ### Install the package from GitHub
+
 ```r
 devtools::install_github("yuanfang90/LNMVGA", upgrade_dependencies = FALSE)
+```
+### Then...enjoy using the package
+
+```{r}
+library(LNMVGA)
 ```
