@@ -13,24 +13,8 @@
 #' @export
 #' @keywords data
 #' @examples
-#' # generate a two-component 21-dimentional data
-#' G=2 # number of component
-#' K=20 # number of taxa - dimension of the latent variabel
-#'
-#' n_1 = 250
-#' t_mu_1 <- c(runif(20,0.5,1), 0)
-#' t_Sigma_1 <- rbind(cbind(genPositiveDefMat(dim=20,covMethod="unifcorrmat",rangeVar=c(0.25,0.75))$Sigma,0),0)
-#'
-#' n_2 = 250
-#' t_mu_2 <- c(runif(20,-1,0.2), 0)
-#' t_Sigma_2 <- rbind(cbind(genPositiveDefMat(dim=20,covMethod="unifcorrmat",rangeVar=c(0,0.5))$Sigma,0),0)
-#'
-#' num_observation=c(n_1,n_2)
-#' true_mu<-list(t_mu_1,t_mu_2)
-#' true_Sig<-list(t_Sigma_1,t_Sigma_2)
-#'
-#' true_par <- list(G=G,N=num_observation,K=K,mu=true_mu,Sigma=true_Sig)
-#' Data.temp <- generate_data(G=2,num_observation=c(n_1,n_2),K=20,true_mu=list(t_mu_1,t_mu_2),true_Sig=list(t_Sigma_1,t_Sigma_2),seed.no=1234,M=10000,truelab=TRUE)
+#' # generate a two-component 3-dimentional data
+#' generate_data(G = 2, num_observation = c(50,50), K = 2, true_mu = list(c(0,1,0),c(-2,-5,0)),true_Sig=list(rbind(cbind(diag(1,2),0),0),rbind(cbind(diag(1,2),0),0)), seed.no = 1234, M = 10000, truelab = TRUE)
 
 generate_data <- function(num_grp,num_observation,K,true_mu,true_Sig,seed.no,M,truelab=TRUE){
   set.seed(seed.no)
