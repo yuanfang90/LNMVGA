@@ -15,7 +15,9 @@
 #' @export
 #' @keywords clust
 #' @examples
-#' LNMVGA.clust()
+#' # generate data using Data.temp <- generate_data(G = 2, num_observation = c(50,50), K = 2, true_mu = list(c(0,1,0),c(-2,-5,0)),true_Sig=list(rbind(cbind(diag(1,2),0),0),rbind(cbind(diag(1,2),0),0)), seed.no = 1234, M = 10000, truelab = TRUE)
+#'
+#' LNMVGA.clust(data=Data.temp$W,G=c(1:5),initial="small_EM",runtime=TRUE,true_lab=Data.temp$true_lab,threshold=1e-4,nrep=30,niter=50)
 
 LNMVGA.clust <- function(data,G,initial,runtime,true_lab=rep(NA,nrow(data)),threshold,verb,maxiter=NA,nrep=NA,niter=NA){
   ##### data: input data, counts, integer
