@@ -3,7 +3,7 @@
 #' This function is the main clustering function for the proposed algorithm.
 #' @param data Matrix of integers. Input data here, data are counts.
 #' @param G Input a vector specifying all number of components that the model is fit for. E.g., G = c(1:4) will fit models for G = 1,  2, 3, 4.
-#' @param initial Specify method for initializing z_ig. Possible values could be "kmeans", "random", "small_EM".
+#' @param initial Specify method for initializing z_ig. Possible values could be "kmeans", "random", "small_EM". Default is "kmeans".
 #' @param runtime Logical variable, if outputting the running time of the whole procedure or not.
 #' @param true_lab Vector of true class membership. If not specified, defalt is NA for all observations.
 #' @param threshold Threshold for the Atiken's stopping creterion for convergence.
@@ -19,7 +19,7 @@
 #'
 #' LNMVGA.clust(data=Data.temp$W,G=c(1:5),initial="small_EM",runtime=TRUE,true_lab=Data.temp$true_lab,threshold=1e-4,nrep=30,niter=50)
 
-LNMVGA.clust <- function(data,G,initial,runtime,true_lab=rep(NA,nrow(data)),threshold,verb,maxiter=NA,nrep=NA,niter=NA){
+LNMVGA.clust <- function(data,G,initial=="kmeans",runtime,true_lab=rep(NA,nrow(data)),threshold,verb,maxiter=NA,nrep=NA,niter=NA){
   ##### data: input data, counts, integer
   ##### G: input vector of all G, specifying all G's that the model is fit for
   ##### initial: possible values could be "kmeans", "random", "small_EM", different way of initialize z_ig
