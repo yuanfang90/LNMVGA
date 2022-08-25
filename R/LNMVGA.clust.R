@@ -19,7 +19,7 @@
 #'
 #' LNMVGA.clust(data=Data.temp$W,G=c(1:5),initial="small_EM",runtime=TRUE,true_lab=Data.temp$true_lab,threshold=1e-4,nrep=30,niter=50)
 
-LNMVGA.clust <- function(data,G,initial=="kmeans",runtime,true_lab=rep(NA,nrow(data)),threshold,verb,maxiter=NA,nrep=NA,niter=NA){
+LNMVGA.clust <- function(data,G,initial="kmeans",runtime,true_lab=rep(NA,nrow(data)),threshold,verb,maxiter=NA,nrep=NA,niter=NA){
   ##### data: input data, counts, integer
   ##### G: input vector of all G, specifying all G's that the model is fit for
   ##### initial: possible values could be "kmeans", "random", "small_EM", different way of initialize z_ig
