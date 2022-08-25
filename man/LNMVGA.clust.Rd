@@ -22,7 +22,7 @@ LNMVGA.clust(
 
 \item{G}{Input a vector specifying all number of components that the model is fit for. E.g., G = c(1:4) will fit models for G = 1,  2, 3, 4.}
 
-\item{initial}{Specify method for initializing z_ig. Possible values could be "kmeans", "random", "small_EM".}
+\item{initial}{Specify method for initializing z_ig. Possible values could be "kmeans", "random", "small_EM". Default is "kmeans".}
 
 \item{runtime}{Logical variable, if outputting the running time of the whole procedure or not.}
 
