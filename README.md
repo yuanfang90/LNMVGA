@@ -1,5 +1,8 @@
 # LNMVGA
  This package provide a novel mixture of logistic-normal multinomial models for clustering microbiome data, or other compositional data. Parameter estimation are accomplished using variational Gaussian approximation to lift the computational overhead.
+ 
+ Methodology detail used in this package is from the manuscript in [Fang and Subedi (2020)](https://arxiv.org/pdf/2011.06682). Datasets discussed in the simulation study of the manuscript is available in the _data_ folder. Kxny.RData stores a collection of 100 replicated datasets of x-dimentional data with y observations.
+ 
 
 ## How to Install
 
