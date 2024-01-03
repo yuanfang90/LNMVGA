@@ -5,12 +5,12 @@
 \title{A function for newton update of V
 This function calculate the first derivative of the elbo with respect to V for it's kth diagonal element.}
 \usage{
-vk_fun(x, Sig_kk, m_k, M, xi)
+vk_fun(x, iSig_kk, m_k, M, xi)
 }
 \arguments{
 \item{x}{kth diagonal element of V, variable of this function}
 
-\item{Sig_kk}{\link{k,k}th element of the variance parameter for the latent Gaussian variable,.}
+\item{iSig_kk}{k-th diagonal element of the (generalized) inverse variance parameter for the latent Gaussian variable.}
 
 \item{m_k}{kth element of variational parameter m.}
 

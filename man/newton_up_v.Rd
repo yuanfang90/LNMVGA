@@ -5,12 +5,12 @@
 \title{A function for newton update of V
 This function performs newton update of V within one iteration.}
 \usage{
-newton_up_v(xold, Sig_kk, m_k, M, xi)
+newton_up_v(xold, iSig_kk, m_k, M, xi)
 }
 \arguments{
 \item{xold}{kth diagonal element of V, value from last iteration.}
 
-\item{Sig_kk}{\link{k,k}th element of the variance parameter for the latent Gaussian variable,.}
+\item{iSig_kk}{k-th diagonal element of the (generalized) inverse variance parameter for the latent Gaussian variable.}
 
 \item{m_k}{kth element of variational parameter m.}
 

@@ -25,7 +25,10 @@ initialize_fun <- function(W,G,K,n,method,nrep=NA,niter=NA,verb=FALSE){
     xi_hat <- rep(1,n)
     m_hat <- latent
     V_hat <- vector("list",n)
-    for(i in 1:n){V_hat[[i]]<-rbind(cbind(diag(0.1,K),0),0)}
+    Vmat<-matrix(rep(c(rep(0.1,K),0),n),nrow=n,byrow=T)
+
+    for(i in 1:n){V_hat[[i]]<-diag(Vmat[i,])}
+
     musig_up <- mst_fun(m=m_hat,V=V_hat,G=G,K=K,z=z)
     if(all(!is.na(musig_up$mu))){
       mu_hat <- musig_up$mu
@@ -35,21 +38,34 @@ initialize_fun <- function(W,G,K,n,method,nrep=NA,niter=NA,verb=FALSE){
       Sig_hat <- list()
       for(g in 1:G){Sig_hat[[g]] <- rbind(cbind(diag(1,K),0),0)}
     }
-    par <- list(pi_g=pi_g,xi=xi_hat,m=m_hat,V=V_hat,mu=mu_hat,Sig=Sig_hat)
+
+    red_sig<-list()
+    for(g in 1:G){
+      red_sig[[g]] <- Sig_hat[[g]][1:K,1:K]
+    }
+    iSig_hat<-list()
+    for(g in 1:G){
+      iSig_hat[[g]] <- MASS::ginv(Sig_hat[[g]])
+    }
+
+    par <- list(pi_g=pi_g,xi=xi_hat,m=m_hat,V=V_hat,Vmat=Vmat,mu=mu_hat,Sig=Sig_hat,red_sig=red_sig,iSig=iSig_hat)
+
     return(list(z=z,par=par))
   }
 
   if(method == "random"){
     theta <- W/rowSums(W)
     latent <- log(theta/theta[,(K+1)])
-    # z <- unmap(mapz=kmeans(latent,center=G,nstart=10)$cluster,G=G)
     z <- unmap(mapz=sample(1:G,n,replace=TRUE),G=G)
 
     pi_g <- colSums(z)/sum(z)
     xi_hat <- rep(1,n)
     m_hat <- latent
     V_hat <- vector("list",n)
-    for(i in 1:n){V_hat[[i]]<-rbind(cbind(diag(0.1,K),0),0)}
+    Vmat<-matrix(rep(c(rep(0.1,K),0),n),nrow=n,byrow=T)
+
+    for(i in 1:n){V_hat[[i]]<-diag(Vmat[i,])}
+
     musig_up <- mst_fun(m=m_hat,V=V_hat,G=G,K=K,z=z)
     if(all(!is.na(musig_up$mu))){
       mu_hat <- musig_up$mu
@@ -59,7 +75,18 @@ initialize_fun <- function(W,G,K,n,method,nrep=NA,niter=NA,verb=FALSE){
       Sig_hat <- list()
       for(g in 1:G){Sig_hat[[g]] <- rbind(cbind(diag(1,K),0),0)}
     }
-    par <- list(pi_g=pi_g,xi=xi_hat,m=m_hat,V=V_hat,mu=mu_hat,Sig=Sig_hat)
+
+    red_sig<-list()
+    for(g in 1:G){
+      red_sig[[g]] <- Sig_hat[[g]][1:K,1:K]
+    }
+    iSig_hat<-list()
+    for(g in 1:G){
+      iSig_hat[[g]] <- MASS::ginv(Sig_hat[[g]])
+    }
+
+    par <- list(pi_g=pi_g,xi=xi_hat,m=m_hat,V=V_hat,Vmat=Vmat,mu=mu_hat,Sig=Sig_hat,red_sig=red_sig,iSig=iSig_hat)
+
     return(list(z=z,par=par))
   }
 
@@ -88,7 +115,10 @@ initialize_fun <- function(W,G,K,n,method,nrep=NA,niter=NA,verb=FALSE){
       xi_hat <- rep(1,n)
       m_hat <- latent
       V_hat <- vector("list",n)
-      for(i in 1:n){V_hat[[i]]<-rbind(cbind(diag(0.1,K),0),0)}
+      Vmat<-matrix(rep(c(rep(0.1,K),0),n),nrow=n,byrow=T)
+
+      for(i in 1:n){V_hat[[i]]<-diag(Vmat[i,])}
+
       musig_up <- mst_fun(m=m_hat,V=V_hat,G=G,K=K,z=z)
       if(all(!is.na(musig_up$mu))){
         mu_hat <- musig_up$mu
@@ -98,36 +128,49 @@ initialize_fun <- function(W,G,K,n,method,nrep=NA,niter=NA,verb=FALSE){
         Sig_hat <- list()
         for(g in 1:G){Sig_hat[[g]] <- rbind(cbind(diag(1,K),0),0)}
       }
-      initial_par <- list(pi_g=pi_g,xi=xi_hat,m=m_hat,V=V_hat,mu=mu_hat,Sig=Sig_hat)
+
+      red_sig<-list()
+      for(g in 1:G){
+        red_sig[[g]] <- Sig_hat[[g]][1:K,1:K]
+      }
+      iSig_hat<-list()
+      for(g in 1:G){
+        iSig_hat[[g]] <- MASS::ginv(Sig_hat[[g]])
+      }
+
+      initial_par <- list(pi_g=pi_g,xi=xi_hat,m=m_hat,V=V_hat,Vmat=Vmat,mu=mu_hat,Sig=Sig_hat,red_sig=red_sig,iSig=iSig_hat)
 
       old_par <- initial_par
       loglik_approx <- NULL
       loglik_approx[1] <- -Inf
       for(it in 2:I){
-        tau <- z_fun(W=W,xi=old_par$xi,m=old_par$m,V=old_par$V,mu=old_par$mu,Sig=old_par$Sig,pi_g=old_par$pi_g,G=G)
-        if(tau$con == 1){
-          zhat <- tau$z
-        }else{
-          zhat <- unmap(mapz=sample(1:G,n,replace=TRUE),G=G)
-        }
-        varpar_up <- varpar_fun(W=W,m=old_par$m,V=old_par$V,mu=old_par$mu,Sig=old_par$Sig,K=K,z=zhat)
+        zhat <- z_fun(W=W,m=old_par$m,V=old_par$V,Vmat=old_par$Vmat,mu=old_par$mu,Sig=old_par$Sig,red_sig=old_par$red_sig,pi_g=old_par$pi_g,G=G,it=it)
+
+        varpar_up <- varpar_fun(W=W,m=old_par$m,V=old_par$V,mu=old_par$mu,Sig=old_par$Sig,K=K,z=zhat,iSig=old_par$iSig)
         xi_hat <- varpar_up$xi
         m_hat <- varpar_up$m
         V_hat <- varpar_up$V
+        Vmat<-varpar_up$Vmat
 
         # M-step
         pi_g_hat <- colSums(zhat)/sum(zhat)
-        if(all(!is.na(musig_up$mu))){
-          mu_hat <- musig_up$mu
-          Sig_hat <- musig_up$Sig
-        }else{
-          mu_hat <- old_par$mu
-          Sig_hat <- old_par$Sig
+        musig_up <- mst_fun(m=m_hat,V=V_hat,G=G,K=K,z=zhat)
+        mu_hat <- musig_up$mu
+        Sig_hat <- musig_up$Sig
+
+        iSig_hat<-list()
+        for(g in 1:G){
+          iSig_hat[[g]] <- MASS::ginv(Sig_hat[[g]])
+        }
+        red_sig<-list()
+        for(g in 1:G){
+          red_sig[[g]] <- Sig_hat[[g]][1:K,1:K]
         }
 
         # calculate approximated loglikelihood
-        loglik_approx[it] <- loglik.approx(W=W,xi=xi_hat,m=m_hat,V=V_hat,mu=mu_hat,Sig=Sig_hat,pi_g=pi_g_hat,G=G)
-        old_par <- list(pi_g=pi_g_hat,xi=xi_hat,m=m_hat,V=V_hat,mu=mu_hat,Sig=Sig_hat)
+        loglik_approx[it] <- loglik.approx(W=W,m=m_hat,V=V_hat,Vmat=Vmat,mu=mu_hat,Sig=Sig_hat,red_sig=red_sig,pi_g=pi_g_hat,G=G,it=it)
+
+        old_par <- list(pi_g=pi_g_hat,xi=xi_hat,m=m_hat,V=V_hat,Vmat=Vmat,mu=mu_hat,Sig=Sig_hat,red_sig=red_sig,iSig=iSig_hat)
 
       }
       z_store[[s]]<-zhat

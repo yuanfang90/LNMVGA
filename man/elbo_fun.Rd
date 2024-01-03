@@ -2,25 +2,31 @@
 % Please edit documentation in R/elbo_fun.R
 \name{elbo_fun}
 \alias{elbo_fun}
-\title{A function to calculate the expected log sum exponential term for calculation of the elbo}
+\title{An internal function to calculate the expected log sum exponential term for calculation of the elbo
+This function takes in the parameters for all groups and output a matrix, with the element from the ith row and gth column representing the elbo calculated for the ith observation under the condition that it comes from the gth group.}
 \usage{
-elbo_fun(W_i, xi_i, m_i, V_i, mu_g, Sig_g)
+elbo_fun(W, m, Vmat, V, mu, red_sig, Sig, G)
 }
 \arguments{
-\item{W_i}{count data the ith observation.}
+\item{W}{count data}
 
-\item{xi_i}{variational parameter xi, for the ith observation.}
+\item{m}{variational parameter m}
 
-\item{m_i}{variational parameter m, for the ith observation.}
+\item{Vmat}{internal parameter, a matrix of n rows as n being number of observations; each row is the diagonal element of the variational parameter V.}
 
-\item{V_i}{variational parameter V, for the ith observation.}
+\item{V}{variational parameter V, a list of n matrices, n being number of observations.}
 
-\item{mu_g}{mean parameter for the latent Gaussian variable from the gth component.}
+\item{mu}{mean parameter for the latent Gaussian variable.}
 
-\item{Sig_g}{variance parameter for the latent Gaussian variable from the gth component.}
+\item{red_sig}{internal parameter, a list of G K*K dimensional matrices from the variance parameter.}
+
+\item{Sig}{variance parameter for the latent Gaussian variable, a list of G (K+1)*(K+1) matrices, G is the numbe of component and K+1 is the number of taxa (dimension of the count data).}
+
+\item{G}{number of components.}
 }
 \description{
-This function calculate the expected log sum exponential term which will be used in the calculation of the elbo.
+An internal function to calculate the expected log sum exponential term for calculation of the elbo
+This function takes in the parameters for all groups and output a matrix, with the element from the ith row and gth column representing the elbo calculated for the ith observation under the condition that it comes from the gth group.
 }
 \examples{
 elbo_fun()

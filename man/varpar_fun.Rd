@@ -4,7 +4,7 @@
 \alias{varpar_fun}
 \title{A function to update the variational parameters.}
 \usage{
-varpar_fun(W, m, V, mu, Sig, K, z)
+varpar_fun(W, m, V, mu, iSig, K, z)
 }
 \arguments{
 \item{W}{observation data: the count data, n*(K+1) matrix where K is the number of taxa.}
@@ -15,7 +15,7 @@ varpar_fun(W, m, V, mu, Sig, K, z)
 
 \item{mu}{mean parameter for the latent Gaussian variable, list of g vectors of (K+1).}
 
-\item{Sig}{variance parameter for the latent Gaussian variable, list of g (K+1)*(K+1) matrices.}
+\item{iSig}{(generalized) inverse variance parameter for the latent Gaussian variable, list of g (K+1)*(K+1) matrices.}
 
 \item{K}{number of taxa.}
 

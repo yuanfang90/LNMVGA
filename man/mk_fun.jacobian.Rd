@@ -5,12 +5,12 @@
 \title{A function for newton update of m
 This function calculate the jacobian matrix of the elbo with respect to m for it's kth element.}
 \usage{
-mk_fun.jacobian(x, Sig, vsquare, M, xi)
+mk_fun.jacobian(x, iSig, vsquare, M, xi)
 }
 \arguments{
 \item{x}{kth element of m, variable of this function}
 
-\item{Sig}{variance parameter for the latent Gaussian variable.}
+\item{iSig}{inverse matrices of the variance parameter for the latent Gaussian variable.}
 
 \item{vsquare}{diagonal elements of the variational parameter V.}
 

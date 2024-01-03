@@ -5,14 +5,14 @@
 \title{A function for newton update of m
 This function calculate the first derivative of the elbo with respect to m for it's kth element.}
 \usage{
-mk_fun(x, W_i, Sig, mu, vsquare, M, xi)
+mk_fun(x, W_i, iSig, mu, vsquare, M, xi)
 }
 \arguments{
 \item{x}{kth element of m, variable of this function}
 
 \item{W_i}{ith observation.}
 
-\item{Sig}{variance parameter for the latent Gaussian variable.}
+\item{iSig}{inverse matrices of the variance parameter for the latent Gaussian variable.}
 
 \item{mu}{mean parameter for the latent Gaussian variable.}
 

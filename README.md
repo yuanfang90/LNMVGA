@@ -3,6 +3,11 @@
  
  Methodology detail used in this package is from the manuscript in [Fang and Subedi (2020)](https://arxiv.org/pdf/2011.06682). Datasets discussed in the simulation study of the manuscript is available in the _data_ folder. Kxny.RData stores a collection of 100 replicated datasets of x-dimentional data with y observations.
  
+## Update 2023/06
+
+Update to improve computation performance
+  - Updated the following functions:
+  
 
 ## How to Install
 

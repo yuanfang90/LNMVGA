@@ -5,14 +5,14 @@
 \title{A function for newton update of m
 This function performs newton update of m within one iteration.}
 \usage{
-newton_up_m(xold, W_i, Sig, mu, vsquare, M, xi, K)
+newton_up_m(xold, W_i, iSig, mu, vsquare, M, xi, K)
 }
 \arguments{
 \item{xold}{kth element of m, value from last iteration.}
 
 \item{W_i}{ith observation.}
 
-\item{Sig}{variance parameter for the latent Gaussian variable.}
+\item{iSig}{(generalized) inverse matrices variance parameter for the latent Gaussian variable.}
 
 \item{mu}{mean parameter for the latent Gaussian variable.}
 
